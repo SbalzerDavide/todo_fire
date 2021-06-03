@@ -1,25 +1,24 @@
+var db = firebase.firestore();
+
+
 const app = new Vue ({
     el: '#app',
 
     data: {
         saluto: 'salutone',
-        toDoList:[
-            {
-                item: 'Fare la spesa',
-                check: 'opacity-hidden',
-            },
-            {
-                item: 'Chiamare Giovanni',
-                check: 'opacity-hidden',
-            },
-            {
-                item: 'Aperitivo',
-                check: 'opacity-hidden',
-            },
-        ],
+        toDoList:[],
         message:'',
     },
-
+    created(){
+        vue = this;
+        window.db.collection("note").get().then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+                vue.toDoList.push(doc.data());
+            });
+        });
+        
+        // this.toDoList = 
+    },
     methods:{
         addItem(index){
             if (this.message.trim() != ''){
@@ -41,7 +40,25 @@ const app = new Vue ({
             }
         }
     }
-
-    
-
 });
+
+  
+
+// db.collection("note").add({
+//     item: "fare la cacca",
+//     check: false,
+// })
+// .then((docRef) => {
+//     console.log("Document written with ID: ", docRef.id);
+// })
+// .catch((error) => {
+//     console.error("Error adding document: ", error);
+// });
+
+db.collection("users").get().then((querySnapshot) => {
+    querySnapshot.forEach((doc) => {
+        console.log(`${doc.id} => ${doc.data()}`);
+        console.log(doc.data());
+    });
+});
+  

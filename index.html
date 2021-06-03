@@ -59,7 +59,37 @@
 
 
 
+    <!-- firebase configurazion -->
+        <!-- The core Firebase JS SDK is always required and must be listed first -->
+        <script src="https://www.gstatic.com/firebasejs/8.6.3/firebase-app.js"></script>
+        
+        <!-- TODO: Add SDKs for Firebase products that you want to use
+        https://firebase.google.com/docs/web/setup#available-libraries -->
+        <script src="https://www.gstatic.com/firebasejs/8.6.3/firebase-analytics.js"></script>
+
+        <!-- firebase firestore -->
+        <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-firestore.js"></script>
+        
+        <script>
+            // Your web app's Firebase configuration
+            // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+            var firebaseConfig = {
+                apiKey: "AIzaSyA9TA2TqlDXz6wb6D9sY4URfnQ9rfySsiY",
+                authDomain: "todo-vue-caa64.firebaseapp.com",
+                projectId: "todo-vue-caa64",
+                storageBucket: "todo-vue-caa64.appspot.com",
+                messagingSenderId: "1027821065216",
+                appId: "1:1027821065216:web:d73c5a7480a21340fdb4e5",
+                measurementId: "G-0LX9DSTKL8"
+            };
+            // Initialize Firebase
+            firebase.initializeApp(firebaseConfig);
+            firebase.analytics();
+        </script>
+
+    <!-- cdn vue -->
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <!-- import main script  -->
     <script src="./js/main.js"></script>
 </body>
 </html>
