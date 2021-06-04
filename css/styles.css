@@ -158,3 +158,9 @@ i.opacity-show{
 i.opacity-hidden{
     opacity: 0;
 }
+
+@media screen and (max-width: 600px) {
+    .container{
+        width: 80%;
+    }
+}
