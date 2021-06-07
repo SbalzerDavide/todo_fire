@@ -37,7 +37,15 @@
                             :class='[toDoList[index].check, "fas fa-check"]'
                             >
                             </i>
-                            {{ toDoList[index].item }}
+                            <div v-if = "editItem === index" class="edit">
+                                <input v-model="newText" type="text" > 
+                                <span @click="change(index)">conferma</span>                               
+                            </div>
+                            <div v-else class="text">
+                                <p  @click="edit(index)">{{ toDoList[index].item }}</p>
+
+                            </div>
+                            
                         </p>
                         <i 
                         @click='removeItem(index)'

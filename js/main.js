@@ -8,13 +8,17 @@ const app = new Vue ({
         saluto: 'salutone',
         toDoList:[],
         message:'',
+        editItem: -1,
+        newText: "",
     },
     created(){
         vue = this;
         window.db.collection("note").get().then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
+                console.log(doc);
                 let newItem = doc.data();
                 newItem.id = doc.id;
+                console.log(newItem);
 
                 vue.toDoList.push(newItem);
                 console.log(doc.id);
@@ -32,32 +36,82 @@ const app = new Vue ({
                 })
                 .then((docRef) => {
                     console.log("Document written with ID: ", docRef.id);
+                    let newItem = {
+                        item:this.message,
+                        check:'opacity-hidden',
+                        id : docRef.id
+                    }
+                    console.log(newItem);
+                    this.message='';
+                    this.toDoList.push(newItem);
                 })
                 .catch((error) => {
                     console.error("Error adding document: ", error);
                 });
-                this.toDoList.push({
-                    item:this.message,
-                    check:'opacity-hidden',
-                });
             };
-            this.message='';
         },
         removeItem(index){
-            this.toDoList.splice(index,1);
-            db.collection("note").doc("KT0DlXIPKOHZmpJ6kMkE").delete()
+            console.log("eliminato");
+            let actualId = this.toDoList[index].id;
+            console.log(actualId);
+            db.collection("note").doc(actualId).delete()
             .then(() => {
                 console.log("Document successfully deleted!");
+                this.toDoList.splice(index,1);
             }).catch((error) => {
                 console.error("Error removing document: ", error);
             });
         },
         done(index){
+            console.log("aggiornato");
             if (this.toDoList[index].check === 'opacity-hidden'){
                 this.toDoList[index].check = 'opacity-show';
+                let actualId = this.toDoList[index].id;
+                console.log(actualId);
+                db.collection("note").doc(actualId).update({
+                    check: 'opacity-show'
+                })
+                .then(() => {
+                    console.log("Document successfully updated!");
+                }).catch((error) => {
+                    // The document probably doesn't exist.
+                    console.error("Error updating document: ", error);
+                });
+    
             } else{
                 this.toDoList[index].check = 'opacity-hidden';
+                let actualId = this.toDoList[index].id;
+                console.log(actualId);
+                db.collection("note").doc(actualId).update({
+                    check: 'opacity-hidden'
+                })
+                .then(() => {
+                    console.log("Document successfully updated!");
+                }).catch((error) => {
+                    // The document probably doesn't exist.
+                    console.error("Error updating document: ", error);
+                });
+    
             }
+        },
+        edit(index){
+            this.editItem = index;
+            console.log(this.toDoList[index].item);
+            this.newText = this.toDoList[index].item;
+        },
+        change(index){
+            let actualId = this.toDoList[index].id;
+            console.log(actualId);
+            db.collection("note").doc(actualId).update({
+                item: this.newText
+            })
+            .then(() => {
+                console.log("Document successfully updated!");
+            }).catch((error) => {
+                // The document probably doesn't exist.
+                console.error("Error updating document: ", error);
+            });
+
         }
     }
 });
