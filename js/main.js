@@ -13,7 +13,7 @@ const app = new Vue ({
     },
     created(){
         vue = this;
-        let noteRef = window.db.collection("note").orderBy("timestamp").limit(20).get().then((querySnapshot) => {
+        let noteRef = window.db.collection("note").orderBy("timestamp").limit(100).get().then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
                 console.log(doc);
                 let newItem = doc.data();
