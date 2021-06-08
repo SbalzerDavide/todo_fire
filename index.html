@@ -29,24 +29,30 @@
 
                     <!-- todo list -->
                     <div v-for='(item, index) in toDoList' class="row flex">
-                        <p 
-                        class="element"
-                        @click='done(index)'
-                        >
-                            <i 
-                            :class='[toDoList[index].check, "fas fa-check"]'
+                        <div class="left">
+                            <div 
+                            class="element"
                             >
-                            </i>
-                            <div v-if = "editItem === index" class="edit">
-                                <input v-model="newText" type="text" > 
-                                <span @click="change(index)">conferma</span>                               
+                                <i 
+                                :class='[toDoList[index].check, "fas fa-check"]'
+                                @click='done(index)'
+                                >
+                                </i>
+                                <div v-if = "editItem === index" class="edit">
+                                    <input v-model="newText" 
+                                    type="text"
+                                    @keyup.enter="change(index)" 
+                                    > 
+                                    <span @click="change(index)">conferma</span>                               
+                                </div>
+                                <div v-else class="text">
+                                    <p  @click="edit(index)">{{ toDoList[index].item }}</p>
+    
+                                </div>
+                                
                             </div>
-                            <div v-else class="text">
-                                <p  @click="edit(index)">{{ toDoList[index].item }}</p>
 
-                            </div>
-                            
-                        </p>
+                        </div>
                         <i 
                         @click='removeItem(index)'
                         class="fas fa-times"></i>                

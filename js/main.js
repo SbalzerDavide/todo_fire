@@ -13,7 +13,7 @@ const app = new Vue ({
     },
     created(){
         vue = this;
-        window.db.collection("note").get().then((querySnapshot) => {
+        let noteRef = window.db.collection("note").orderBy("timestamp").limit(20).get().then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
                 console.log(doc);
                 let newItem = doc.data();
@@ -24,6 +24,9 @@ const app = new Vue ({
                 console.log(doc.id);
             });
         });
+        console.log(window.db.collection("note").orderBy("timestamp", "desc").limit(3));
+        
+
         
         // this.toDoList = 
     },
@@ -33,6 +36,8 @@ const app = new Vue ({
                 db.collection("note").add({
                     item:this.message,
                     check:'opacity-hidden',
+                    timestamp: Date.now(),
+
                 })
                 .then((docRef) => {
                     console.log("Document written with ID: ", docRef.id);
@@ -103,10 +108,13 @@ const app = new Vue ({
             let actualId = this.toDoList[index].id;
             console.log(actualId);
             db.collection("note").doc(actualId).update({
-                item: this.newText
+                item: this.newText,
+                timestamp = Date.now()
             })
             .then(() => {
                 console.log("Document successfully updated!");
+                this.toDoList[index].item = this.newText;
+                this.editItem = -1;
             }).catch((error) => {
                 // The document probably doesn't exist.
                 console.error("Error updating document: ", error);
