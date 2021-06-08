@@ -109,7 +109,7 @@ const app = new Vue ({
             console.log(actualId);
             db.collection("note").doc(actualId).update({
                 item: this.newText,
-                timestamp = Date.now(),
+                timestamp : Date.now(),
             })
             .then(() => {
                 console.log("Document successfully updated!");
