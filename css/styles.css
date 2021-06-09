@@ -106,6 +106,8 @@ button:hover{
 .list{
     padding: 10px 20px;
     background-color: white;
+    display: flex;
+    flex-direction: column-reverse;
 }
 
 
@@ -167,5 +169,21 @@ i.opacity-hidden{
     }
 }
 .prova{
-    
+
+}
+
+/* loader */
+.loader{
+    color: #f15bb5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    font-size: 60px;
+    animation: load 1s linear infinite;
+}
+@keyframes load{
+    0% {transform: rotate(0);}
+    50% {transform: rotate(180deg);}
+    100% {transform: rotate(360deg);}
 }

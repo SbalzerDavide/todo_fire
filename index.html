@@ -10,7 +10,12 @@
 </head>
 <body>
     <div id="app">
-        <div class="container">
+        <!-- loader -->
+        <div class="loader" v-if="!load">
+            <i class="fas fa-circle-notch"></i>
+        </div>
+        
+        <div v-else class="container">
             <h1>My todo List...</h1>
             <div class="insert">
                 <input v-model='message' 

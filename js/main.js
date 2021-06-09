@@ -10,6 +10,7 @@ const app = new Vue ({
         message:'',
         editItem: -1,
         newText: "",
+        load: false
     },
     created(){
         vue = this;
@@ -22,6 +23,7 @@ const app = new Vue ({
 
                 vue.toDoList.push(newItem);
                 console.log(doc.id);
+                // this.load = true;
             });
         });
         console.log(window.db.collection("note").orderBy("timestamp", "desc").limit(3));
