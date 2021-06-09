@@ -23,7 +23,7 @@ const app = new Vue ({
 
                 vue.toDoList.push(newItem);
                 console.log(doc.id);
-                // this.load = true;
+                this.load = true;
             });
         });
         console.log(window.db.collection("note").orderBy("timestamp", "desc").limit(3));
